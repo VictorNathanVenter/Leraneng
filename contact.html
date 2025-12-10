@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact — Leranen Services</title>
+
+<style>
+:root{
+--radius:20px;
+--shadow:0 25px 60px rgba(0,0,0,.18);
+}
+
+/* DARK */
+[data-theme="dark"]{
+--bg1:#0b0b0b;
+--bg2:#1a1a1a;
+--glass:rgba(0,0,0,.65);
+--white-glass:#111;
+--border-glass:rgba(255,165,0,.35);
+--text:#fff;
+--muted:#cfcfcf;
+--accent:#ff9800;
+}
+
+/* LIGHT */
+[data-theme="light"]{
+--bg1:#eef2ff;
+--bg2:#dbeafe;
+--glass:rgba(255,255,255,.75);
+--white-glass:#fff;
+--border-glass:rgba(37,99,235,.25);
+--text:#0f172a;
+--muted:#475569;
+--accent:#2563eb;
+}
+
+body{
+margin:0;
+font-family:system-ui;
+background:linear-gradient(135deg,var(--bg1),var(--bg2));
+color:var(--text);
+min-height:100vh;
+padding:1.5rem;
+display:flex;
+justify-content:center;
+}
+
+.theme-toggle{
+position:fixed;
+top:18px;
+right:18px;
+padding:.6rem 1.3rem;
+border-radius:999px;
+background:var(--glass);
+border:1px solid var(--border-glass);
+cursor:pointer;
+font-weight:700;
+box-shadow:var(--shadow);
+}
+
+.container{max-width:650px;width:100%}
+
+.logo{
+font-size:2.2rem;
+font-weight:900;
+background:linear-gradient(135deg,var(--accent),#93c5fd);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.card{
+background:var(--glass);
+border:1px solid var(--border-glass);
+border-radius:var(--radius);
+padding:2.4rem;
+box-shadow:var(--shadow);
+}
+
+.muted{color:var(--muted)}
+
+label{display:block;margin-top:1rem}
+
+input,textarea{
+width:100%;
+padding:.75rem;
+border-radius:12px;
+margin-top:.3rem;
+border:1px solid var(--border-glass);
+background:var(--white-glass);
+color:var(--text);
+}
+
+/* CUSTOM SELECT */
+.select-box{position:relative;}
+.select-display{
+padding:.75rem;
+border-radius:12px;
+background:var(--white-glass);
+border:1px solid var(--border-glass);
+cursor:pointer;
+}
+.options{
+position:absolute;
+top:105%;
+left:0;
+width:100%;
+background:var(--white-glass);
+border:1px solid var(--border-glass);
+border-radius:12px;
+max-height:0;
+overflow:hidden;
+transition:.3s;
+z-index:99;
+}
+.options.open{max-height:300px;}
+.option{padding:.75rem;cursor:pointer;}
+.option:hover{background:var(--accent);color:#fff;}
+
+.btn{
+background:linear-gradient(135deg,var(--accent),#93c5fd);
+color:#fff;
+padding:.8rem 1.6rem;
+border-radius:18px;
+border:0;
+font-weight:700;
+margin-top:1rem;
+cursor:pointer;
+}
+
+.btn.ghost{
+background:transparent;
+border:1px solid var(--accent);
+color:var(--accent);
+margin-left:.6rem;
+}
+</style>
+</head>
+
+<body>
+
+<div class="theme-toggle" id="themeToggle">🌙 / ☀️</div>
+
+<div class="container">
+<div class="card">
+
+<h1 class="logo">Contact Leranen Services</h1>
+<p class="muted">Request a quote, ask a question.</p>
+
+<form>
+
+<label>Name *</label>
+<input required>
+
+<label>Email *</label>
+<input type="email" required>
+
+<label>Phone</label>
+<input>
+
+<label>Service *</label>
+<div class="select-box" id="serviceBox">
+<div class="select-display" id="serviceLabel">Select a Service</div>
+<div class="options" id="serviceOptions">
+<div class="option">General Cleaning</div>
+<div class="option">Deep Cleaning</div>
+<div class="option">Lawn & Garden Maintenance</div>
+<div class="option">Hedge & Tree Pruning</div>
+<div class="option">Move-In / Move-Out Cleaning</div>
+<div class="option">Post-Renovation Cleaning</div>
+<div class="option">Custom Requests</div>
+</div>
+</div>
+
+<input type="hidden" id="serviceHidden" required>
+
+<label>Message *</label>
+<textarea required></textarea>
+
+<button class="btn">Send Message</button>
+<button class="btn ghost" type="reset">Reset</button>
+
+</form>
+
+<br>
+<a href="index.html" class="btn ghost">← Back to Home</a>
+
+</div>
+</div>
+
+<script>
+const toggle=document.getElementById("themeToggle");
+const saved=localStorage.getItem("theme");
+if(saved) document.documentElement.setAttribute("data-theme",saved);
+
+toggle.onclick=()=>{
+const cur=document.documentElement.getAttribute("data-theme");
+const next=cur==="dark"?"light":"dark";
+document.documentElement.setAttribute("data-theme",next);
+localStorage.setItem("theme",next);
+};
+
+/* CUSTOM DROPDOWN */
+const box=document.getElementById("serviceBox");
+const label=document.getElementById("serviceLabel");
+const options=document.getElementById("serviceOptions");
+const hidden=document.getElementById("serviceHidden");
+
+label.onclick=()=>options.classList.toggle("open");
+
+document.querySelectorAll(".option").forEach(opt=>{
+opt.onclick=()=>{
+label.textContent=opt.textContent;
+hidden.value=opt.textContent;
+options.classList.remove("open");
+};
+});
+
+/* SERVICE AUTO-MATCH FROM HOME */
+const params=new URLSearchParams(window.location.search);
+const svc=params.get("service");
+if(svc){
+label.textContent=svc;
+hidden.value=svc;
+}
+</script>
+
+</body>
+</html>

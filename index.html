@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Leranen Services</title>
+
+<style>
+:root{
+--radius:20px;
+--shadow:0 25px 60px rgba(0,0,0,.18);
+--glow:0 0 35px rgba(37,99,235,.25);
+}
+
+/* DARK */
+[data-theme="dark"]{
+--bg1:#0b0b0b;
+--bg2:#1a1a1a;
+--glass:rgba(0,0,0,.55);
+--white-glass:rgba(255,255,255,.06);
+--border-glass:rgba(255,165,0,.35);
+--text:#fff;
+--muted:#cfcfcf;
+--accent:#ff9800;
+}
+
+/* LIGHT */
+[data-theme="light"]{
+--bg1:#eef2ff;
+--bg2:#dbeafe;
+--glass:rgba(255,255,255,.65);
+--white-glass:rgba(255,255,255,.9);
+--border-glass:rgba(37,99,235,.25);
+--text:#0f172a;
+--muted:#475569;
+--accent:#2563eb;
+}
+
+*{box-sizing:border-box;}
+
+body{
+margin:0;
+font-family:system-ui;
+background:linear-gradient(135deg,var(--bg1),var(--bg2));
+color:var(--text);
+min-height:100vh;
+padding:1.5rem;
+display:flex;
+justify-content:center;
+}
+
+.theme-toggle{
+position:fixed;
+top:18px;
+right:18px;
+padding:.6rem 1.3rem;
+border-radius:999px;
+background:var(--glass);
+border:1px solid var(--border-glass);
+cursor:pointer;
+font-weight:700;
+box-shadow:var(--shadow);
+}
+
+.container{max-width:950px;width:100%;}
+
+.logo{
+font-size:2.6rem;
+font-weight:900;
+background:linear-gradient(135deg,var(--accent),#93c5fd);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.card{
+background:var(--glass);
+border:1px solid var(--border-glass);
+border-radius:var(--radius);
+padding:2.5rem;
+margin-bottom:2rem;
+box-shadow:var(--shadow),var(--glow);
+}
+
+.muted{color:var(--muted);}
+
+.btn{
+background:linear-gradient(135deg,var(--accent),#93c5fd);
+color:#fff;
+padding:.85rem 1.6rem;
+border-radius:18px;
+text-decoration:none;
+font-weight:700;
+display:inline-block;
+transition:.25s;
+}
+.btn:hover{transform:translateY(-4px) scale(1.05);}
+
+.services-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:1.6rem;
+}
+
+.service-box{
+background:var(--white-glass);
+border:1px solid var(--border-glass);
+border-radius:18px;
+padding:1.6rem;
+transition:.3s;
+cursor:pointer;
+}
+.service-box:hover{
+transform:translateY(-6px);
+border-color:var(--accent);
+}
+</style>
+</head>
+
+<body>
+
+<div class="theme-toggle" id="themeToggle">🌙 / ☀️</div>
+
+<div class="container">
+
+<div class="card" style="text-align:center;">
+<h1 class="logo">Leranen Services</h1>
+<p class="muted">Professional, dependable and affordable home & garden services.</p>
+<a href="contact.html" class="btn">Request a Quote →</a>
+</div>
+
+<div class="card">
+<h2>Our Services</h2>
+
+<div class="services-grid">
+
+<div class="service-box" onclick="goService('General Cleaning')">
+<strong>General Cleaning</strong><p class="muted">Fresh & hygienic cleaning.</p>
+</div>
+
+<div class="service-box" onclick="goService('Deep Cleaning')">
+<strong>Deep Cleaning</strong><p class="muted">Kitchens & bathrooms.</p>
+</div>
+
+<div class="service-box" onclick="goService('Lawn & Garden Maintenance')">
+<strong>Lawn & Garden Maintenance</strong><p class="muted">Mowing & upkeep.</p>
+</div>
+
+<div class="service-box" onclick="goService('Hedge & Tree Pruning')">
+<strong>Hedge & Tree Pruning</strong><p class="muted">Shaping & trimming.</p>
+</div>
+
+<div class="service-box" onclick="goService('Move-In / Move-Out Cleaning')">
+<strong>Move-In / Move-Out</strong><p class="muted">Rental cleaning.</p>
+</div>
+
+<div class="service-box" onclick="goService('Post-Renovation Cleaning')">
+<strong>Post-Renovation</strong><p class="muted">Dust removal.</p>
+</div>
+
+<div class="service-box" onclick="goService('Custom Requests')">
+<strong>Custom Requests</strong><p class="muted">Tailored services.</p>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<script>
+const toggle=document.getElementById("themeToggle");
+const saved=localStorage.getItem("theme");
+if(saved) document.documentElement.setAttribute("data-theme",saved);
+
+toggle.onclick=()=>{
+const cur=document.documentElement.getAttribute("data-theme");
+const next=cur==="dark"?"light":"dark";
+document.documentElement.setAttribute("data-theme",next);
+localStorage.setItem("theme",next);
+};
+
+function goService(service){
+window.location.href="contact.html?service="+encodeURIComponent(service);
+}
+</script>
+
+</body>
+</html>
