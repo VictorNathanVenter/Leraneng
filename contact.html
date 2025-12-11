@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Contact — Leranen Services</title>
+<title>Contact — Leraneng Services</title>
 
 <style>
 :root{
@@ -144,19 +144,20 @@ margin-left:.6rem;
 <div class="container">
 <div class="card">
 
-<h1 class="logo">Contact Leranen Services</h1>
+<h1 class="logo">Contact Leraneng Services</h1>
 <p class="muted">Request a quote, ask a question.</p>
 
-<form>
+<!-- ✅ FORM ACTION ADDED + METHOD POST -->
+<form action="https://formspree.io/f/xldqorgz" method="POST">
 
 <label>Name *</label>
-<input required>
+<input name="name" required>
 
 <label>Email *</label>
-<input type="email" required>
+<input type="email" name="email" required>
 
 <label>Phone</label>
-<input>
+<input name="phone">
 
 <label>Service *</label>
 <div class="select-box" id="serviceBox">
@@ -172,10 +173,11 @@ margin-left:.6rem;
 </div>
 </div>
 
-<input type="hidden" id="serviceHidden" required>
+<!-- ✅ Hidden service value now has name="service" -->
+<input type="hidden" id="serviceHidden" name="service" required>
 
 <label>Message *</label>
-<textarea required></textarea>
+<textarea name="message" required></textarea>
 
 <button class="btn">Send Message</button>
 <button class="btn ghost" type="reset">Reset</button>
